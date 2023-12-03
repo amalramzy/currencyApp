@@ -1,6 +1,6 @@
 
 #include <iostream>
-#include"currency.h"
+#include"currency_list.h"
 using namespace std;
 using std::string;
 
@@ -85,17 +85,19 @@ int CurrencyList::listSize() const
 
 // to update the data portion of the current node to contain el;
 // assume the current position is nonempty.
-void CurrencyList::updateData(const string &d)
+void CurrencyList::updateData( string &d,double &p)
 {
 	cursor->data = d;
+	cursor->price = p;
 }
 
 // to return the data in the current node;
 // assume the current position is nonempty.
-void CurrencyList::retrieveData(string &d, int &k) const
+void CurrencyList::retrieveData(double &p ,string &d, int &k) const
 {
 	d = cursor->data; //return cursor->data
 	k = cursor ->key;
+	p = cursor->price;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
 void CurrencyList::retrieveKey(int &k) const
@@ -105,11 +107,11 @@ void CurrencyList::retrieveKey(int &k) const
 
 // insert a node with data (el) at the head of the list;
 // the new node becomes the current node.
-void CurrencyList::insertFirst(const int &k, const string &d )
+void CurrencyList::insertFirst(const int &k, const string &d ,const double &p)
 {
 	NodePointer pnew; //node * pnew;
 	pnew = new node;
-	pnew->key = k; pnew->data = d;
+	pnew->key = k; pnew->data = d,pnew->price=p;
 	pnew->next = head;
 	head = pnew;
 	cursor = head;
@@ -121,11 +123,11 @@ void CurrencyList::insertFirst(const int &k, const string &d )
 // insert a node with data (el) after the current node
 // without changing the current position;
 // assume the current position is nonempty in a non-empty list.
-void CurrencyList::insertAfter(const int &k, const string &d )
+void CurrencyList::insertAfter(const int &k, const string &d ,const double &p)
 {
 	NodePointer pnew;
 	pnew = new node;
-	pnew->key = k; pnew->data = d;
+	pnew->key = k; pnew->data = d,pnew->price=p;
 	pnew->next = cursor->next;
  	cursor->next = pnew;
  	prev = cursor;
@@ -135,11 +137,11 @@ void CurrencyList::insertAfter(const int &k, const string &d )
 
 // insert a node with data (el) before the current node,
 // current position becomes the new node.
-void CurrencyList::insertBefore(const int &k, const string &d )
+void CurrencyList::insertBefore(const int &k, const string &d ,const double &p)
 {
 	NodePointer pnew;
 	pnew = new node;
-	pnew->key = k; pnew->data = d;
+	pnew->key = k; pnew->data = d,pnew->price=p;
 	pnew->next = cursor; //pnew->next = prev ->next
     prev->next = pnew;
 	cursor = pnew;
@@ -147,10 +149,10 @@ void CurrencyList::insertBefore(const int &k, const string &d )
 
 // insert a node with data (el) at the end of the list,
 // current position becomes the new node.
-void CurrencyList::insertEnd(const int &k, const string &d )
+void CurrencyList::insertEnd(const int &k, const string &d,const double &p )
 {
-	if (listIsEmpty()) insertFirst(k,d);
-	else {toEnd(); insertAfter(k,d); }
+	if (listIsEmpty()) insertFirst(k,d,p);
+	else {toEnd(); insertAfter(k,d,p); }
 }
 
 
@@ -210,25 +212,33 @@ void CurrencyList::makeListEmpty()
 // search the list for the node with key part that matches (k).
 // If found, set cursor to the node and return True,
 // else return false and the current position becomes empty.
-bool CurrencyList::search(const int &k)
+bool CurrencyList::search(const int &k )
 {
 	bool found = false;
   	toFirst();
-	while ((! found) && (cursor != NULL))
-		if (k == cursor->key)  found = true;
-			else advance();
-	return found;
+	while ((cursor != NULL))
+		if (k == cursor->key) {
+		
+			found = true;
+			return found;
+		}
+		else advance();
+		return found;
+	
 }
+
+
+
 
 // insert a node in a position that maintains an ascending
 // order of the key portion of the nodes.
-void CurrencyList::orderInsert(const string &d, const int &k)
+void CurrencyList::orderInsert(const double &p,const string &d, const int &k )
 {
 	toFirst();
 	while ((cursor != NULL) && (k > cursor->key))
 		advance();
-	if (prev == NULL)  insertFirst(k,d);
-		else insertBefore(k,d);
+	if (prev == NULL)  insertFirst(k,d,p);
+		else insertBefore(k,d,p);
 }
 
 // traverse list to print key and data fields
@@ -239,7 +249,7 @@ void CurrencyList::traverse()
 	toFirst();
 	while (! curIsEmpty())
 	{
-		cout << cursor->data << " - "<<cursor->key << endl;
+		cout << cursor->key << " - "<<cursor->data << endl;
 		advance();
 	}
 }
