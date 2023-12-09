@@ -9,13 +9,13 @@ using namespace std;
 
 int main() {
 	int to,from;
-	CurrencyList l1;
-	CurrencyList l2;
-	l1.insertEnd(1, "EGP",128859.74);
- 	l1.insertEnd(2, "USD",41675.20);
- 	l1.insertEnd(3, "SAR",156329.63);
- 	l1.insertEnd(4, "JPY",614167.22);
- 	l1.insertEnd(5, "EUR",38469.86);
+	CurrencyList l1,l2;
+	l1.insertEnd(1, "EGP",1);
+ 	l1.insertEnd(2, "USD",1);
+ 	l1.insertEnd(3, "SAR",1);
+ 	l1.insertEnd(4, "JPY",1);
+ 	l1.insertEnd(5, "EUR",1);
+ 	
 	l2.insertEnd(1,"Bitcoin",128859.74);
 	l2.insertEnd(2,"Bitcoin",41675.20);
 	l2.insertEnd(3,"Bitcoin",156329.63);
