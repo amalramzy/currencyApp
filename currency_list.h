@@ -45,7 +45,7 @@ private:
 	void deleteEnd();
 	void makeListEmpty();
 	bool search(const int &);
-	
+	void display(CurrencyList list);
 	void orderInsert(const double & ,const string &, const int & );
 	void traverse();
 	
