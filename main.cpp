@@ -6,7 +6,7 @@ using namespace std;
 #include "currency_list.h"
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
-
+void getInt(int & y);
 int main() {
 	int to,from;
 	CurrencyList l1,l2;
@@ -24,25 +24,24 @@ int main() {
 	cout << "------------------- Welcome ------------" << endl;
 	cout << "----------------------------------------" << endl;
 	l1.traverse();
-	cout << "Select Currency by its number :";
-	
-	cin >> from;
-	
-	cout << "----------------------------------------" << endl;
 
-
-	cout << endl;
-
-	if(l2.search(from)){
-		int i  = 0; // key
-		string k;  // name
-		double p;//price
 	
+l1.display(l2);
+		
 	
-l2.retrieveData(p,k,i);
-cout << "the Currency with Key: " << i << " with the name " << k << " is ..Drum roll.. equal : " << p << endl;
-
-	}
 
 	return 0;
+}
+void getInt(int & y)
+{
+		int x = 0;
+	
+			cin >> x;
+			
+			if(x != 0)
+			{
+				y = x;
+			
+			}
+		
 }

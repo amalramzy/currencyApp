@@ -253,4 +253,24 @@ void CurrencyList::traverse()
 		advance();
 	}
 }
+void CurrencyList::display(CurrencyList list)
+{
+int from ;
+	cout << "Select A Currency:";
 
+cin >> from;	
+	cout << "----------------------------------------" << endl;
+if(list.search(from)){
+		int i  = 0; // key
+		string k;  // name
+		double p;//price
+	
+	
+list.retrieveData(p,k,i);
+cout << "the Currency with Key: " << i << " with the name " << k << " is ..Drum roll.. Equal : " << p << endl;
+
+}else{
+
+display(list); 
+}
+}
